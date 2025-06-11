@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MARIYA — Graphic Designer Resume</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8fcff;
+      color: #2e2e2e;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .main-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 50px;
+      text-align: left;
+    }
+
+    header img {
+      width: 160px;
+      height: 160px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 2px solid #dbefff;
+    }
+
+    header h1 {
+      font-size: 48px;
+      font-weight: 600;
+      color: #0077aa;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      border-bottom: 2px solid #cce5ff;
+      padding-bottom: 6px;
+      color: #005f88;
+    }
+
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .description-wrapper {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .description {
+      font-size: 16px;
+      color: #3b3b3b;
+      white-space: pre-wrap;
+      text-align: justify;
+    }
+
+    .skills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .skill-circle {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .skill-circle:hover {
+      transform: scale(1.08);
+    }
+
+    .skill-circle svg {
+      transform: rotate(-90deg);
+    }
+
+    .circle-bg {
+      fill: none;
+      stroke: #e0f4ff;
+      stroke-width: 8;
+    }
+
+    .circle-progress {
+      fill: none;
+      stroke: #0099cc;
+      stroke-width: 8;
+      stroke-linecap: round;
+    }
+
+    .skill-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -55%);
+      width: 36px;
+      height: 36px;
+      filter: drop-shadow(0 0 4px #ffdde6);
+    }
+
+    .skill-label {
+      position: absolute;
+      bottom: -22px;
+      width: 100%;
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+      color: #0077aa;
+    }
+
+    .contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .contacts div {
+      background: #eef9ff;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-weight: 500;
+      border: 1px solid #cce5ff;
+      color: #004466;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .left-tall {
+      display: flex; 
+      background: #f4fbff;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid #ffd6e6;
+    }
+
+    .left-tall img {
+      width: 100%;
+      height: auto;
+      align-self: flex-start; 
+    }
+
+    .right-grid {
+      display: grid;
+      gap: 10px;
+      grid-auto-rows: auto; 
+    }
+
+    .right-grid div {
+      display: flex; /* Добавляем */
+      background: #f4fbff;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #ffd6e6;
+    }
+
+    .right-grid img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="main-content">
+      <header>
+        <img src="https://i.ibb.co/5gQVRkmZ/image.png" alt="image" border="0">
+        <div>
+          <h1>Иванова Мария</h1>
+          <p>Графический дизайнер / SMM-менеджер</p>
+        </div>
+      </header>
+
+      <div class="section">
+        <h2>Обо мне</h2>
+        <div class="description-wrapper">
+          <p class="description">
+	Я начинающий графический дизайнер. На данный момент учусь на направлении «Информационные технологии в медиаиндустрии». Имею примеры выполненных работ: лендинги, баннеры, визуальный контент для соцсетей.
+	Владею графическими редакторами Adobe Ilustrator, Photoshop, Figma и Canva, а также обладаю базовыми навыками программирования на Python, HTML, CSS и JavaScript. 
+	Имею опыт в подготовке рекламных материалов для Telegram-каналов. Активно изучаю современные инструменты и улучшаю визуальные навыки.
+          </p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Навыки программ</h2>
+        <div class="skills-row">
+          <!-- Illustrator -->
+          <div class="skill-circle">
+            <svg width="100" height="100">
+              <circle class="circle-bg" cx="50" cy="50" r="40"/>
+              <circle class="circle-progress" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="12.56"/>
+            </svg>
+            <img class="skill-icon" src="https://cdn-icons-png.flaticon.com/512/5968/5968472.png" alt="Illustrator">
+            <div class="skill-label">Illustrator</div>
+          </div>
+          <!-- InDesign -->
+          <div class="skill-circle">
+            <svg width="100" height="100">
+              <circle class="circle-bg" cx="50" cy="50" r="40"/>
+              <circle class="circle-progress" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="87.92"/>
+            </svg>
+            <img class="skill-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Adobe_InDesign_CC_icon.svg/512px-Adobe_InDesign_CC_icon.svg.png" alt="InDesign">
+            <div class="skill-label">InDesign</div>
+          </div>
+          <!-- Photoshop -->
+          <div class="skill-circle">
+            <svg width="100" height="100">
+              <circle class="circle-bg" cx="50" cy="50" r="40"/>
+              <circle class="circle-progress" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="75.36"/>
+            </svg>
+            <img class="skill-icon" src="https://cdn-icons-png.flaticon.com/512/5968/5968520.png" alt="Photoshop">
+            <div class="skill-label">Photoshop</div>
+          </div>
+          <!-- Figma -->
+          <div class="skill-circle">
+            <svg width="100" height="100">
+              <circle class="circle-bg" cx="50" cy="50" r="40"/>
+              <circle class="circle-progress" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="87.92"/>
+            </svg>
+            <img class="skill-icon" src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="Figma">
+            <div class="skill-label">Figma</div>
+          </div>
+          <!-- CapCut -->
+          <div class="skill-circle">
+            <svg width="100" height="100">
+              <circle class="circle-bg" cx="50" cy="50" r="40"/>
+              <circle class="circle-progress" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="50.24"/>
+            </svg>
+            <img class="skill-icon" src="https://png.klev.club/uploads/posts/2024-04/png-klev-club-ov8d-p-capcut-png-2.png" alt="CapCut">
+            <div class="skill-label">CapCut</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Контакты</h2>
+        <div class="contacts">
+          <div>Telegram: @ponavva</div>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Примеры работ</h2>
+      <div class="projects">
+        <div class="left-tall">
+          <img src="https://i.ibb.co/9k5yJdkw/image.png" alt="где кокакола(" />
+        </div>
+        <div class="right-grid">
+          <div><img src="https://i.ibb.co/WWM2b92j/image.png" alt="Работа 1"></div>
+          <div><img src="https://i.ibb.co/GvM3gBy9/image.png" alt="Работа 2"></div>
+          <div><img src="https://i.ibb.co/mrkb89HQ/image.png" alt="Работа 3"></div>
+          <div><img src="https://i.ibb.co/prXG5hrY/image.png" alt="Работа 4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
