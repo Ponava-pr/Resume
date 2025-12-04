@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
+    console.log('Скрипт запущен!');
+    
     const form = document.getElementById('resumeForm');
     const profileNameInput = document.getElementById('profileNameInput');
     const saveProfileBtn = document.getElementById('saveProfileBtn');
@@ -7,57 +9,75 @@ document.addEventListener('DOMContentLoaded', function () {
     const deleteProfileBtn = document.getElementById('deleteProfileBtn');
     const resetFormBtn = document.getElementById('resetFormBtn');
 
-    // Ключи для localStorage
+    if (!form || !profileNameInput || !saveProfileBtn || !profilesSelect || 
+        !loadProfileBtn || !deleteProfileBtn || !resetFormBtn) {
+        console.error('Ошибка: не все элементы найдены! Проверьте ID в HTML.');
+        return;
+    }
+
     const AUTO_SAVE_KEY = 'autosaveResume';
     const PROFILES_KEY = 'savedProfiles';
 
-    // ФУНКЦИИ ДЛЯ РАБОТЫ С ФОРМОЙ
     function getFormData() {
-        const formData = new FormData(form);
         const data = {};
-      
-        for (let [key, value] of formData.entries()) {
-            data[key] = value;
-        }
-
-        const checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
-        data.skills = Array.from(checkboxes).map(cb => cb.value);
-
+        
+        const elements = form.querySelectorAll('input, select, textarea');
+        
+        elements.forEach(element => {
+            const name = element.name;
+            if (!name) return;
+            
+            if (element.type === 'checkbox') {
+                if (!data[name]) {
+                    data[name] = [];
+                }
+                if (element.checked) {
+                    data[name].push(element.value);
+                }
+            } else if (element.type === 'radio') {
+                if (element.checked) {
+                    data[name] = element.value;
+                }
+            } else {
+                data[name] = element.value;
+            }
+        });
+        
         return data;
     }
 
     function setFormData(data) {
         if (!data) return;
-
-        for (let key in data) {
-            const element = form.querySelector(`[name="${key}"]`);
-            if (!element) continue;
-
+        const elements = form.querySelectorAll('input, select, textarea');
+        
+        elements.forEach(element => {
+            const name = element.name;
+            if (!name || !data.hasOwnProperty(name)) return;
+            
+            const value = data[name];
+            
             if (element.type === 'checkbox') {
-                // Для чекбоксов проверяем, есть ли значение в массиве
-                element.checked = data.skills && data.skills.includes(element.value);
+                if (Array.isArray(value)) {
+                    element.checked = value.includes(element.value);
+                } else {
+                    element.checked = false;
+                }
+            } else if (element.type === 'radio') {
+                if (value === element.value) {
+                    element.checked = true;
+                }
             } else {
-                element.value = data[key] || '';
+                element.value = value || '';
             }
-        }
-
-        if (data.skills && Array.isArray(data.skills)) {
-            const allCheckboxes = form.querySelectorAll('input[type="checkbox"]');
-            allCheckboxes.forEach(cb => {
-                cb.checked = data.skills.includes(cb.value);
-            });
-        }
+        });
     }
 
-    // АВТОСОХРАНЕНИЕ
-    // Изменение в форме
     form.addEventListener('input', function () {
         const data = getFormData();
         localStorage.setItem(AUTO_SAVE_KEY, JSON.stringify(data));
         console.log('Автосохранение выполнено.');
     });
 
-    // Восстановление черновика при загрузке страницы
     const autosaveData = localStorage.getItem(AUTO_SAVE_KEY);
     if (autosaveData) {
         try {
@@ -69,7 +89,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // УПРАВЛЕНИЕ ПРОФИЛЯМИ
     function updateProfileSelect() {
         const profiles = JSON.parse(localStorage.getItem(PROFILES_KEY)) || {};
         profilesSelect.innerHTML = '<option value="">-- Выберите профиль --</option>';
@@ -82,10 +101,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Инициализация списка профилей
     updateProfileSelect();
 
-    // Сохранение профиля
     saveProfileBtn.addEventListener('click', function () {
         const profileName = profileNameInput.value.trim();
         if (!profileName) {
@@ -103,7 +120,6 @@ document.addEventListener('DOMContentLoaded', function () {
         updateProfileSelect();
     });
 
-    // Загрузка профиля
     loadProfileBtn.addEventListener('click', function () {
         const selectedName = profilesSelect.value;
         if (!selectedName) {
@@ -115,7 +131,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const data = profiles[selectedName];
         if (data) {
             setFormData(data);
-            // Обновляем черновик автосохранения данными из профиля
             localStorage.setItem(AUTO_SAVE_KEY, JSON.stringify(data));
             alert(`Профиль "${selectedName}" загружен.`);
         } else {
@@ -123,7 +138,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Удаление профиля
     deleteProfileBtn.addEventListener('click', function () {
         const selectedName = profilesSelect.value;
         if (!selectedName) {
@@ -143,7 +157,6 @@ document.addEventListener('DOMContentLoaded', function () {
         updateProfileSelect();
     });
 
-    // Сброс формы
     resetFormBtn.addEventListener('click', function () {
         if (!confirm('Очистить форму и удалить черновик? Введённые данные будут потеряны.')) {
             return;
